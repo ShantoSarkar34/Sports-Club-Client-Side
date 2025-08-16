@@ -1,10 +1,8 @@
-import React, { use } from "react";
+import React from "react";
 import logo from "../assets/footer-logo.png";
 import { NavLink } from "react-router";
-import { AuthContext } from "../authProvider/AuthProvider";
 
 const Footer = () => {
-  const { user } = use(AuthContext);
 
   return (
     <div className="bg-[#2d2d2d] w-full ">
@@ -81,26 +79,10 @@ const Footer = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/fridge" className="hover:underline">
-                      Fridge
+                    <NavLink to="/courts" className="hover:underline">
+                      Court
                     </NavLink>
                   </li>
-                  {user ? (
-                    <>
-                      <li>
-                        <NavLink to="/add-food" className="hover:underline">
-                          Add Food
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to="/my-items" className="hover:underline">
-                          My Items
-                        </NavLink>
-                      </li>
-                    </>
-                  ) : (
-                    <></>
-                  )}
                 </ul>
               </div>
               <div className="space-y-3">
