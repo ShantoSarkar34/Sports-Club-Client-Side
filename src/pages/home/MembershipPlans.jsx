@@ -30,7 +30,7 @@ export default function MembershipPlans() {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-20 bg-gradient-to-b from-gray-200 to-gray-300">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Section Title */}
         <motion.div
@@ -52,11 +52,10 @@ export default function MembershipPlans() {
           {plans.map((plan) => (
             <motion.div
               key={plan.id}
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.03 }}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className={`relative bg-white rounded-3xl shadow-xl p-8 flex flex-col items-center text-center transition cursor-pointer ${
+              className={`relative bg-white rounded-3xl shadow-xl p-8 flex flex-col items-center text-center transition-all duration-200 ${
                 plan.popular ? "border-4 border-[#0da1ff]" : ""
               }`}
             >
@@ -76,9 +75,7 @@ export default function MembershipPlans() {
                 ))}
               </ul>
               <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 bg-[#0da1ff] text-white font-bold rounded-2xl shadow-xl hover:bg-[#0b8de0] transition"
+                className="px-6 py-3 cursor-pointer bg-[#0da1ff] text-white font-bold rounded-2xl shadow-xl hover:bg-[#0b8de0] transition"
               >
                 Join Now
               </motion.button>

@@ -10,10 +10,8 @@ export default function Promotions() {
 
   return (
     <section
-      className="w-full py-20 px-6 md:px-12 lg:px-24 relative overflow-hidden"
+      className="w-full py-20 px-6 md:px-12 lg:px-24 relative overflow-hidden bg-gradient-to-b from-gray-200 to-gray-300"
       style={{
-        backgroundImage:
-          "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7))",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

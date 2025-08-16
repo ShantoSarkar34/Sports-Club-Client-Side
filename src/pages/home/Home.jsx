@@ -6,6 +6,8 @@ import Promotions from "./Promotions";
 import FacilitiesAmenities from "./FacilitiesAmenities";
 import SportsPrograms from "./SportsPrograms";
 import MembershipPlans from "./MembershipPlans";
+import CoachesTrainers from "./CoachesTrainers";
+import NewsletterCTA from "./NewsletterCTA";
 
 const Home = () => {
   useEffect(() => {
@@ -17,9 +19,11 @@ const Home = () => {
       <About></About>
       <FacilitiesAmenities></FacilitiesAmenities>
       <SportsPrograms></SportsPrograms>
+      <CoachesTrainers></CoachesTrainers>
       <MembershipPlans></MembershipPlans>
-      <Location></Location>
       <Promotions></Promotions>
+      <Location></Location>
+      <NewsletterCTA></NewsletterCTA>
     </div>
   );
 };
