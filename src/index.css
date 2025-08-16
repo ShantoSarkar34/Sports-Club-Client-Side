@@ -1,0 +1,48 @@
+@import "tailwindcss";
+@plugin "daisyui";
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: black;
+  background-color: white;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --color-primary: #0da1ff;
+  --color-secondary: #FCB819;
+}
+
+/* banner background images here  */
+
+.banner {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.add_food_banner {
+  background-image:linear-gradient(to bottom, #29292995, #29292980), url(/public/images/banner_1.webp);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+.fridge_banner {
+  background-image:linear-gradient(to bottom, #29292995, #29292980), url(/public/images/banner_3.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+.my_items_banner {
+  background-image:linear-gradient(to bottom, #29292995, #29292980), url(/public/images/banner_2.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.backdrop-filter {
+  backdrop-filter: blur(10px);
+}

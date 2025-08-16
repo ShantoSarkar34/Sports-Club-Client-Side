@@ -1,0 +1,5 @@
+todo: 
+update role user to member when approve .
+delete member form admin manage member 
+
+login signin and logout setup again for instantly working.
