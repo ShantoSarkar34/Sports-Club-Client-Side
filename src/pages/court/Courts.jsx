@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
 import { useNavigate } from "react-router";
@@ -13,23 +13,26 @@ export default function Courts() {
   const [selectedSlot, setSelectedSlot] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchSlot, setSearchSlot] = useState("");
   const { user } = use(AuthContext);
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
-  const totalPages = Math.ceil(data?.length / itemsPerPage);
 
+  const totalPages = Math.ceil(filteredData?.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data?.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredData?.slice(indexOfFirstItem, indexOfLastItem);
+
   useEffect(() => {
     document.title = "Sports-Club | Courts";
     axios
       .get("https://sports-club-server-kt5y.onrender.com/admin/courts")
       .then((res) => {
         setData(res.data);
+        setFilteredData(res.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -38,18 +41,8 @@ export default function Courts() {
       });
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center min-h-screen items-center ">
-        <span className="loading loading-dots loading-xl"></span>
-      </div>
-    );
-  }
-
   const handlePageChange = (page) => {
-    if (page > 0 && page <= totalPages) {
-      setCurrentPage(page);
-    }
+    if (page > 0 && page <= totalPages) setCurrentPage(page);
   };
 
   const handleBookNow = (court) => {
@@ -78,15 +71,13 @@ export default function Courts() {
       quantity,
       totalPrice,
       status: "pending",
-      paymentStatus:"due",
+      paymentStatus: "due",
       userEmail: user.email,
-      userName : user.displayName
+      userName: user.displayName,
     };
     fetch("https://sports-club-server-kt5y.onrender.com/all-court", {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
+      headers: { "content-type": "application/json" },
       body: JSON.stringify(bookingData),
     })
       .then((res) => res.json())
@@ -98,6 +89,38 @@ export default function Courts() {
       });
     setShowModal(false);
   };
+
+  const sortByType = () => {
+    const sorted = [...filteredData].sort((a, b) =>
+      a.type.localeCompare(b.type)
+    );
+    setFilteredData(sorted);
+    setCurrentPage(1);
+  };
+
+  const sortBySlotTime = () => {
+    const sorted = [...filteredData].sort((a, b) => {
+      const aTime = a.slots[0] || "";
+      const bTime = b.slots[0] || "";
+      return aTime.localeCompare(bTime);
+    });
+    setFilteredData(sorted);
+    setCurrentPage(1);
+  };
+
+  const searchBySlot = (time) => {
+    const filtered = data.filter((court) => court.slots.includes(time));
+    setFilteredData(filtered);
+    setCurrentPage(1);
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center min-h-screen items-center">
+        <span className="loading loading-dots loading-xl"></span>
+      </div>
+    );
+  }
 
   return (
     <section
@@ -113,100 +136,124 @@ export default function Courts() {
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-4xl md:text-5xl font-extrabold text-center mb-8 text-white drop-shadow-lg"
+        className="text-4xl md:text-5xl font-extrabold text-center mb-8 lg:mb-16 text-white drop-shadow-lg"
       >
         Explore <span className="text-[#0da1ff]"> Our Courts & Sessions</span>
       </motion.h2>
 
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.8 }}
-        className="max-w-4xl mx-auto mb-12 text-center text-white text-sm md:text-lg leading-relaxed drop-shadow-md"
-      >
-        Whether you're a beginner or a pro, our top-notch courts offer the
-        perfect environment for your sport. Choose your preferred court, select
-        a slot, and book your session easily. Our friendly staff ensure all
-        facilities are kept to the highest standard so you can focus on your
-        game.
-      </motion.p>
-
-      {/* Courts Grid with Pagination */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {currentItems.map((court,idx) => (
-          <motion.div
-            key={idx}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="bg-white rounded-3xl shadow-lg overflow-hidden flex flex-col"
-          >
-            <img
-              src={court.image}
-              alt={court.type}
-              className="h-56 w-full object-cover"
-            />
-            <div className="p-6 flex flex-col flex-grow">
-              <h3 className="text-2xl font-bold text-[#0da1ff] mb-2">
-                {court.type}
-              </h3>
-              <p className="text-gray-700 mb-3">{court.description}</p>
-              <p className="text-gray-600 mb-4 font-semibold">
-                Price per session: ${court.price}
-              </p>
-              <select
-                className="border rounded-lg p-2 mb-4"
-                defaultValue=""
-                onChange={(e) => setSelectedSlot(e.target.value)}
-              >
-                <option value="">Select Slot</option>
-                {court.slots.map((slot, i) => (
-                  <option key={i} value={slot}>
-                    {slot}
-                  </option>
-                ))}
-              </select>
-              <button
-                onClick={() => handleBookNow(court)}
-                className="mt-auto bg-[#0da1ff] cursor-pointer text-white px-4 py-3 rounded-xl font-semibold hover:bg-[#0a8cd8] transition"
-              >
-                Book Now
-              </button>
-            </div>
-          </motion.div>
-        ))}
+      {/* Sorting & Search */}
+      <div className="flex flex-col md:flex-row items-center  gap-4 mb-8 lg:mb-16">
+        <button
+          onClick={sortByType}
+          className="px-4 cursor-pointer py-2 bg-[#0da1ff] text-white rounded-xl hover:bg-[#0a8cd8] transition"
+        >
+          Sort by Name
+        </button>
+        <button
+          onClick={sortBySlotTime}
+          className="px-4 cursor-pointer py-2 bg-[#0da1ff] text-white rounded-xl hover:bg-[#0a8cd8] transition"
+        >
+          Sort by Slot Time
+        </button>
+        <input
+          type="text"
+          placeholder="Search by slot (e.g., 10:00 AM)"
+          value={searchSlot}
+          onChange={(e) => setSearchSlot(e.target.value)}
+          className="border rounded-lg p-2 text-white"
+        />
+        <button
+          onClick={() => searchBySlot(searchSlot)}
+          className="px-4 cursor-pointer py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 transition"
+        >
+          Search
+        </button>
       </div>
 
-      {/* Pagination Controls */}
-      <div className="flex justify-center items-center gap-2 mt-10">
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-        >
-          Prev
-        </button>
-        {Array.from({ length: totalPages }).map((_, i) => (
+      {/* Courts Grid */}
+      {currentItems.length === 0 ? (
+        <p className="text-center text-white text-xl mt-10">
+          No court found in this time.
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {currentItems.map((court, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="bg-white rounded-3xl shadow-lg overflow-hidden flex flex-col"
+            >
+              <img
+                src={court.image}
+                alt={court.type}
+                className="h-56 w-full object-cover"
+              />
+              <div className="p-6 flex flex-col flex-grow">
+                <h3 className="text-2xl font-bold text-[#0da1ff] mb-2">
+                  {court.type}
+                </h3>
+                <p className="text-gray-700 mb-3">{court.description}</p>
+                <p className="text-gray-600 mb-4 font-semibold">
+                  Price per session: ${court.price}
+                </p>
+                <select
+                  className="border rounded-lg p-2 mb-4"
+                  defaultValue=""
+                  onChange={(e) => setSelectedSlot(e.target.value)}
+                >
+                  <option value="">Select Slot</option>
+                  {court.slots.map((slot, i) => (
+                    <option key={i} value={slot}>
+                      {slot}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  onClick={() => handleBookNow(court)}
+                  className="mt-auto bg-[#0da1ff] cursor-pointer text-white px-4 py-3 rounded-xl font-semibold hover:bg-[#0a8cd8] transition"
+                >
+                  Book Now
+                </button>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      )}
+
+      {/* Pagination */}
+      {currentItems.length > 0 && (
+        <div className="flex justify-center items-center gap-2 mt-10">
           <button
-            key={i}
-            onClick={() => handlePageChange(i + 1)}
-            className={`px-3 py-1 rounded ${
-              currentPage === i + 1
-                ? "bg-[#0da1ff] text-white"
-                : "bg-gray-200 hover:bg-gray-300"
-            }`}
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
           >
-            {i + 1}
+            Prev
           </button>
-        ))}
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-        >
-          Next
-        </button>
-      </div>
+          {Array.from({ length: totalPages }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => handlePageChange(i + 1)}
+              className={`px-3 py-1 rounded ${
+                currentPage === i + 1
+                  ? "bg-[#0da1ff] text-white"
+                  : "bg-gray-200 hover:bg-gray-300"
+              }`}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
+      )}
 
       {/* Booking Modal (unchanged) */}
       {showModal && selectedCourt && (
