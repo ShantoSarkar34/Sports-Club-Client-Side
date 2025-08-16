@@ -65,7 +65,6 @@ export default function ApprovedBookings() {
     navigate(`/dashboard/member/payment/${data._id}`, { state: data });
   };
 
-  const userRequest = data?.filter((rq)=> rq.userEmail === user?.email)
   
 
   const pendingRequests = data?.filter(
