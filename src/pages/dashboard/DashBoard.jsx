@@ -5,21 +5,20 @@ import useCurrentUser from "../../../useCurrentUser";
 
 export default function Dashboard() {
   const [open, setOpen] = useState(false);
-  const {user} = useCurrentUser()
-  const [data , setData] = useState()
-  const [loading, setLoading] = useState(true)
-  
+  const { user } = useCurrentUser();
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetch(`https://sports-club-server-kt5y.onrender.com/all-users`)
-    .then((res)=> res.json())
-    .then((data)=> {
-      setData(data);
-      setLoading(false);
-    })
-  },[])
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      });
+  }, []);
 
-    if (loading) {
+  if (loading) {
     return (
       <div className="flex justify-center min-h-screen items-center ">
         <span className="loading loading-dots loading-xl"></span>
@@ -27,20 +26,22 @@ export default function Dashboard() {
     );
   }
 
-const filterUserEmail = data?.filter((em)=> em.email === user?.email)
-const filteredUser = filterUserEmail?.filter((res)=> res.role === user?.role)
+  const filterUserEmail = data?.filter((em) => em.email === user?.email);
+  const filteredUser = filterUserEmail?.filter(
+    (res) => res.role === user?.role
+  );
 
   const navItems = [
     { name: "User Dashboard", path: "/dashboard/user/profile" },
     { name: "Member Dashboard", path: "/dashboard/member/profile" },
-    { name: "Admin Dashboard", path: "/dashboard/admin" },
+    { name: "Admin Dashboard", path: "/dashboard/admin/profile" },
   ];
 
   return (
     <div className="flex bg-gray-100">
       {/* Sidebar */}
       <div
-        className={`fixed md:static inset-y-0 left-0 z-40  w-64 bg-slate-600 text-white transform ${
+        className={`fixed md:static inset-y-0 left-0 z-40 min-h-screen w-64 bg-slate-600 text-white transform ${
           open ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 md:translate-x-0 shadow-2xl`}
       >
@@ -50,12 +51,10 @@ const filteredUser = filterUserEmail?.filter((res)=> res.role === user?.role)
         </div>
 
         {/* Nav Items */}
-        {
-          filteredUser.map((userData, idx)=> 
+        {filteredUser.map((userData, idx) => (
           <nav key={idx} className="p-4 flex flex-col gap-2">
-          
-              {
-                userData?.role === "user" ? <NavLink
+            {userData?.role === "user" ? (
+              <NavLink
                 to={navItems[0].path}
                 className={({ isActive }) =>
                   `block px-4 py-3 rounded-lg font-medium transition-colors ${
@@ -67,11 +66,13 @@ const filteredUser = filterUserEmail?.filter((res)=> res.role === user?.role)
                 onClick={() => setOpen(false)}
               >
                 {navItems[0].name}
-              </NavLink> : <></>
-              }
+              </NavLink>
+            ) : (
+              <></>
+            )}
 
-              {
-                userData?.role === "member" ? <NavLink
+            {userData?.role === "member" ? (
+              <NavLink
                 to={navItems[1].path}
                 className={({ isActive }) =>
                   `block px-4 py-3 rounded-lg font-medium transition-colors ${
@@ -83,11 +84,13 @@ const filteredUser = filterUserEmail?.filter((res)=> res.role === user?.role)
                 onClick={() => setOpen(false)}
               >
                 {navItems[1].name}
-              </NavLink> : <></>
-              }
+              </NavLink>
+            ) : (
+              <></>
+            )}
 
-              {
-                userData?.role === "admin" ? <NavLink
+            {userData?.role === "admin" ? (
+              <NavLink
                 to={navItems[2].path}
                 className={({ isActive }) =>
                   `block px-4 py-3 rounded-lg font-medium transition-colors ${
@@ -99,11 +102,26 @@ const filteredUser = filterUserEmail?.filter((res)=> res.role === user?.role)
                 onClick={() => setOpen(false)}
               >
                 {navItems[2].name}
-              </NavLink> : <></>
+              </NavLink>
+            ) : (
+              <></>
+            )}
+
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `block px-4 py-3 rounded-lg font-medium transition-colors ${
+                  isActive
+                    ? "bg-white text-[#0da1ff]"
+                    : "hover:bg-white/20 hover:text-white"
+                }`
               }
-        </nav>)
-        }
-        
+              onClick={() => setOpen(false)}
+            >
+              Home
+            </NavLink>
+          </nav>
+        ))}
       </div>
 
       {/* Mobile Toggle Button */}
