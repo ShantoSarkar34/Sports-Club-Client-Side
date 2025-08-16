@@ -1,9 +1,10 @@
-import React, { use } from "react";
+import React, { use, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import logo from "../assets/logo-png.png";
 import { toast } from "react-toastify";
 import useCurrentUser from "../../useCurrentUser";
 import { AuthContext } from "../authProvider/AuthProvider";
+import { Moon, Sun } from "lucide-react";
 
 const Header = () => {
   const { logout } = use(AuthContext);
@@ -16,8 +17,24 @@ const Header = () => {
     window.location.reload();
   };
 
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  useEffect(() => {
+    document.documentElement.classList.remove(
+      theme === "light" ? "dark" : "light"
+    );
+    document.documentElement.classList.add(theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
   return (
-    <div className="bg-[#2D2D2D] text-white shadow-none w-full fixed z-40 lg:z-50">
+    <div
+      className={`bg-[#2D2D2D] text-white shadow-none w-full fixed z-40 lg:z-50`}
+    >
       <div className="container mx-auto px-4 ">
         <div className="navbar p-0 py-2 lg:py-4   mx-auto ">
           <div className="navbar-start">
@@ -107,7 +124,24 @@ const Header = () => {
           </div>
           <div className="navbar-end">
             <div className="flex items-center gap-4">
-              {/* profile photo is here  */}
+              {/* theme toggle button */}
+              <button
+                onClick={toggleTheme}
+                className="relative cursor-pointer w-16 h-8 flex items-center rounded-full p-1 bg-gradient-to-r from-yellow-400 to-orange-500 dark:from-gray-700 dark:to-gray-900 shadow-lg transition-all duration-500 hover:scale-105"
+              >
+                {/* Toggle Circle */}
+                <span
+                  className={`absolute top-1 left-1 w-6 h-6 bg-white rounded-full flex items-center justify-center text-yellow-400 dark:text-gray-200 transform transition-transform duration-500 ${
+                    theme === "dark" ? "translate-x-8" : ""
+                  }`}
+                >
+                  {theme === "light" ? (
+                    <Moon size={18} className="text-gray-500" />
+                  ) : (
+                    <Sun size={18} className="text-yellow-500" />
+                  )}
+                </span>
+              </button>
               {/* buttons */}
               <div>
                 {user ? (

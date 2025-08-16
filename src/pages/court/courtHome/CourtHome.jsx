@@ -1,7 +1,7 @@
-import React from 'react'
-import Courts from '../Courts'
-import EventsTournaments from '../EventsTournaments'
-import Testimonials from '../Testimonials'
+import React from "react";
+import Courts from "../Courts";
+import EventsTournaments from "../EventsTournaments";
+import Testimonials from "../Testimonials";
 
 const CourtHome = () => {
   return (
@@ -10,7 +10,7 @@ const CourtHome = () => {
       <EventsTournaments></EventsTournaments>
       <Testimonials></Testimonials>
     </div>
-  )
-}
+  );
+};
 
-export default CourtHome
+export default CourtHome;

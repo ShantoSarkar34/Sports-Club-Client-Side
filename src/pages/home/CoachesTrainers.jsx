@@ -8,7 +8,8 @@ export default function CoachesTrainers() {
       name: "John Doe",
       role: "Football Coach",
       rating: 5,
-      photo: "https://images.pexels.com/photos/1134382/pexels-photo-1134382.jpeg?auto=compress&cs=tinysrgb&w=600",
+      photo:
+        "https://images.pexels.com/photos/1134382/pexels-photo-1134382.jpeg?auto=compress&cs=tinysrgb&w=600",
       socials: {
         facebook: "#",
         twitter: "#",
@@ -20,7 +21,8 @@ export default function CoachesTrainers() {
       name: "Sarah Smith",
       role: "Tennis Coach",
       rating: 4,
-      photo: "https://images.pexels.com/photos/3769711/pexels-photo-3769711.jpeg?auto=compress&cs=tinysrgb&w=600",
+      photo:
+        "https://images.pexels.com/photos/3769711/pexels-photo-3769711.jpeg?auto=compress&cs=tinysrgb&w=600",
       socials: {
         facebook: "#",
         twitter: "#",
@@ -32,7 +34,8 @@ export default function CoachesTrainers() {
       name: "Michael Brown",
       role: "Swimming Coach",
       rating: 5,
-      photo: "https://images.pexels.com/photos/3985314/pexels-photo-3985314.jpeg?auto=compress&cs=tinysrgb&w=600",
+      photo:
+        "https://images.pexels.com/photos/3985314/pexels-photo-3985314.jpeg?auto=compress&cs=tinysrgb&w=600",
       socials: {
         facebook: "#",
         twitter: "#",
@@ -55,7 +58,8 @@ export default function CoachesTrainers() {
             Our Coaches & Trainers
           </h2>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-            Meet our professional coaches dedicated to help you reach your peak performance.
+            Meet our professional coaches dedicated to help you reach your peak
+            performance.
           </p>
         </motion.div>
 
