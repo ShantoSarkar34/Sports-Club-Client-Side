@@ -1,5 +1,6 @@
-todo: 
-update role user to member when approve .
-delete member form admin manage member 
 
-login signin and logout setup again for instantly working.
+Live Website link : https://sports-club.surge.sh/
+
+Github repo Client-side : https://github.com/ShantoSarkar34/Sports-Club-Client-Side
+
+Github repo Server-side : https://github.com/ShantoSarkar34/sports-club-server

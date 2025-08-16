@@ -33,40 +33,36 @@ const Footer = () => {
                 </h3>
                 <ul className="space-y-1">
                   <li>
-                    <a
-                      rel="noopener noreferrer"
-                      href="#"
+                    <NavLink
+                    to="/features"
                       className="hover:underline text-white"
                     >
                       Features
-                    </a>
+                    </NavLink>
                   </li>
                   <li>
-                    <a
-                      rel="noopener noreferrer"
-                      href="#"
+                    <NavLink
+                    to="/integrations"
                       className="hover:underline text-white"
                     >
                       Integrations
-                    </a>
+                    </NavLink>
                   </li>
                   <li>
-                    <a
-                      rel="noopener noreferrer"
-                      href="#"
+                    <NavLink
+                    to="/pricing"
                       className="hover:underline text-white"
                     >
                       Pricing
-                    </a>
+                    </NavLink>
                   </li>
                   <li>
-                    <a
-                      rel="noopener noreferrer"
-                      href="#"
+                    <NavLink
+                    to="/faq"
                       className="hover:underline text-white"
                     >
                       FAQ
-                    </a>
+                    </NavLink>
                   </li>
                 </ul>
               </div>
@@ -91,22 +87,20 @@ const Footer = () => {
                 </h3>
                 <ul className="space-y-1">
                   <li>
-                    <a
-                      rel="noopener noreferrer"
-                      href="#"
+                    <NavLink
+                    to="/privacy-policy"
                       className="hover:underline text-white"
                     >
                       Privacy
-                    </a>
+                    </NavLink>
                   </li>
                   <li>
-                    <a
-                      rel="noopener noreferrer"
-                      href="#"
+                    <NavLink
+                      to="/terms-of-service"
                       className="hover:underline text-white"
                     >
                       Terms of Service
-                    </a>
+                    </NavLink>
                   </li>
                 </ul>
               </div>

@@ -30,6 +30,12 @@ import UpdateCourt from "../pages/dashboard/adminDashboard/updateCourt";
 import UpdateAnnouncements from "../pages/dashboard/adminDashboard/UpdateAnnouncements";
 import UpdateCoupon from "../pages/dashboard/adminDashboard/UpdateCoupon";
 import CourtHome from "../pages/court/courtHome/CourtHome";
+import Privacy from "../pages/privacy&policy/Privacy";
+import TermsOfService from "../pages/termsofService/TermsOfService";
+import Faq from "../pages/faq/Faq";
+import Pricing from "../pages/pricing/Pricing";
+import Integrations from "../pages/integrations/Integrations";
+import Features from "../pages/features/Features";
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +58,30 @@ export const router = createBrowserRouter([
       {
         path: "/courts",
         Component: CourtHome,
+      },
+      {
+        path: "/terms-of-service",
+        Component: TermsOfService,
+      },
+      {
+        path: "/faq",
+        Component: Faq,
+      },
+      {
+        path: "/pricing",
+        Component: Pricing,
+      },
+      {
+        path: "/integrations",
+        Component: Integrations,
+      },
+      {
+        path: "/privacy-policy",
+        Component: Privacy,
+      },
+      {
+        path: "/features",
+        Component: Features,
       },
       {
         path: "/dashboard",

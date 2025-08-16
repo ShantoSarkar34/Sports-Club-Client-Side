@@ -33,14 +33,14 @@ const filteredUser = filterUserEmail?.filter((res)=> res.role === user?.role)
   const navItems = [
     { name: "User Dashboard", path: "/dashboard/user/profile" },
     { name: "Member Dashboard", path: "/dashboard/member/profile" },
-    { name: "Admin Dashboard", path: "/dashboard/admin/profile" },
+    { name: "Admin Dashboard", path: "/dashboard/admin" },
   ];
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex bg-gray-100">
       {/* Sidebar */}
       <div
-        className={`fixed md:static inset-y-0 left-0 z-40  w-64 bg-[#363636] text-white transform ${
+        className={`fixed md:static inset-y-0 left-0 z-40  w-64 bg-slate-600 text-white transform ${
           open ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 md:translate-x-0 shadow-2xl`}
       >
