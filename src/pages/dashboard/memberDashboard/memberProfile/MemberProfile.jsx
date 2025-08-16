@@ -32,7 +32,7 @@ export default function MemberProfile() {
         "https://sports-club-server-kt5y.onrender.com/admin/announcement"
       ),
     ])
-      .then(([userRes, courtRes, confirmRes ,annRes]) => {
+      .then(([userRes, courtRes, confirmRes, annRes]) => {
         setData(userRes.data);
         setNewData(courtRes.data);
         setConfirm(confirmRes.data);
@@ -65,7 +65,7 @@ export default function MemberProfile() {
     { name: "Pending", value: pendingRequests?.length || 0 },
     { name: "Approved", value: approve?.length || 0 },
     { name: "Confirm", value: confirm?.length || 0 },
-    { name: "Announcement",value: announcement?.length || 0},
+    { name: "Announcement", value: announcement?.length || 0 },
   ];
 
   const COLORS = ["#0088FE", "#FFBB28", "#FF8042", "#00C49F", "#645EFF"];

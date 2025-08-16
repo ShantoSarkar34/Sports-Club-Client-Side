@@ -5,7 +5,7 @@ export default function PaymentHistory() {
   const [viewMode, setViewMode] = useState("table");
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
-  const {user} = useCurrentUser()
+  const { user } = useCurrentUser();
 
   useEffect(() => {
     fetch("https://sports-club-server-kt5y.onrender.com/member/payment")
@@ -19,7 +19,6 @@ export default function PaymentHistory() {
         setLoading(false);
       });
   }, []);
-
 
   if (loading) {
     return (
@@ -65,7 +64,7 @@ export default function PaymentHistory() {
                 </tr>
               ))}
             </tbody>
-          </table>  
+          </table>
         </div>
       ) : (
         //  CARD LAYOUT

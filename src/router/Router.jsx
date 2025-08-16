@@ -6,7 +6,6 @@ import SignUp from "../pages/signup/SignUp";
 import Home from "../pages/home/Home";
 import PrivetRoute from "../authProvider/PrivetRoute";
 import DashBoard from "../pages/dashboard/DashBoard";
-import Courts from "../pages/court/Courts";
 import MemberDashboard from "../pages/dashboard/memberDashboard/MemberDashboard";
 import UserDashboard from "../pages/dashboard/userDashboard/UserDashboard";
 import AdminDashboard from "../pages/dashboard/adminDashboard/AdminDashboard";
@@ -30,6 +29,7 @@ import AdminProfile from "../pages/dashboard/adminDashboard/adminProfile/AdminPr
 import UpdateCourt from "../pages/dashboard/adminDashboard/updateCourt";
 import UpdateAnnouncements from "../pages/dashboard/adminDashboard/UpdateAnnouncements";
 import UpdateCoupon from "../pages/dashboard/adminDashboard/UpdateCoupon";
+import CourtHome from "../pages/court/courtHome/CourtHome";
 
 export const router = createBrowserRouter([
   {
@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/courts",
-        Component: Courts,
+        Component: CourtHome,
       },
       {
         path: "/dashboard",
