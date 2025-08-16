@@ -68,7 +68,7 @@ export default function ApprovedBookings() {
   const userRequest = data?.filter((rq)=> rq.userEmail === user?.email)
   
 
-  const pendingRequests = userRequest?.filter(
+  const pendingRequests = data?.filter(
     (req) => req.status !== "pending" && req.paymentStatus === "due"
   );
 

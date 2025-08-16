@@ -28,7 +28,6 @@ export default function PaymentHistory() {
       </div>
     );
   }
-  const filterHistory = data?.filter((his)=> his.userEmail === user?.email)
 
   return (
     <div>
@@ -57,7 +56,7 @@ export default function PaymentHistory() {
               </tr>
             </thead>
             <tbody>
-              {filterHistory.map((p) => (
+              {data.map((p) => (
                 <tr key={p._id} className="border-t hover:bg-gray-50">
                   <td className="p-3">{p.date}</td>
                   <td className="p-3">${p.finalPrice}</td>
@@ -71,7 +70,7 @@ export default function PaymentHistory() {
       ) : (
         //  CARD LAYOUT
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filterHistory.map((p) => (
+          {data.map((p) => (
             <div
               key={p._id}
               className="bg-white shadow-md rounded-xl p-4 border border-gray-200 hover:shadow-lg transition"

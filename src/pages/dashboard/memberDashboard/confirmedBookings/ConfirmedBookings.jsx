@@ -26,18 +26,18 @@ export default function ConfirmedBookings() {
       </div>
     );
   }
-  const filterData = data?.filter((val) => val.userEmail === user?.email);
+  // const filterData = data?.filter((val) => val.userEmail === user?.email);
 
   return (
     <div>
       <h2 className="text-3xl font-bold text-[#0da1ff] mb-6">
         Confirmed Bookings
       </h2>
-      {filterData.length === 0 ? (
+      {data.length === 0 ? (
         <p className="text-gray-600">No confirmed bookings yet.</p>
       ) : (
         <div className="space-y-4">
-          {filterData.map((b) => (
+          {data.map((b) => (
             <div
               key={b._id}
               className="p-4 bg-white rounded-lg shadow-md border-l-4 border-blue-500"
